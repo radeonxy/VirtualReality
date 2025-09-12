@@ -23,13 +23,14 @@ arm,forarm=90.0,45.0
 # TODO  :  create robot to manage arm,forarm angles rotation aroune one axis
 def robot(size) :
   global arm,forarm
-  glPushMatrix()  # begin transformation on arm
-  bone(size)      # create arm
-  glPushMatrix()     # begin transformation on forarm
-  bone(size)         # create forarm : bone + cone
-  cone(0.2*size,0.25*size)
-  glPopMatrix()      # end transformation on arm
-  glPopMatrix()  # end transformation on forarm
+  # Hierarchical arm → forearm around Y axis (in Oxz plane)
+  glPushMatrix()
+  glRotatef(arm, 0, 1, 0)     # rotate upper arm
+  bone(size)                  # draw upper arm along +Z
+  glTranslatef(0.0, 0.0, size)
+  glRotatef(forarm, 0, 1, 0)  # rotate forearm
+  bone(size)                  # draw forearm
+  glPopMatrix()
 
 
 # TODO  : create car with a bodywork, 4 rotating wheels  with bolts
@@ -118,7 +119,8 @@ def display() :
   glColor3f(1,0,0)
   #cone(0.25*size,size)    # object to transform
   # 5)TODO : replace cone()  by bone() from  primitives module
-  bone(size)    # object to transform
+  # 6)TODO : replace bone() by robot() and animate with z/Z
+  robot(size)    # object to transform
 
   # 6)TODO : create the above robot() function (robot with arm,forarm) 
   #          replace bone() by robot() 
@@ -210,7 +212,7 @@ def on_keyboard_action(key,x,y) :
     exit(0)
   elif  key== b'w' :
       glutIdleFunc(animation)
-  elif  key== b'w' : 
+  elif  key== b'W' : 
       glutIdleFunc(None)
   else :
     print(f"no interaction on key : {key}")
