@@ -116,8 +116,10 @@ def display() :
   glTranslatef(m_position[0], 0.0, m_position[2])
   glRotatef(m_theta, 0, 1, 0)
   glColor3f(1,0,0)
-  cone(0.25*size,size)    # object to transform
+  #cone(0.25*size,size)    # object to transform
   # 5)TODO : replace cone()  by bone() from  primitives module
+  bone(size)    # object to transform
+
   # 6)TODO : create the above robot() function (robot with arm,forarm) 
   #          replace bone() by robot() 
   #          use (z/Z) key to animate (arm,forarm) the robot
