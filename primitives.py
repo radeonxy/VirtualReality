@@ -227,9 +227,9 @@ def display() :
 
   glPushMatrix()
   glRotatef(-90,1,0,0)
-  square(2*size)
+  #square(2*size)
   
-  #floor(10*size)
+  floor(10*size)
   glPopMatrix()
 
   # 2) TODO : test primitives
