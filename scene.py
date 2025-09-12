@@ -112,6 +112,9 @@ def display() :
   # 4) TODO : keyboard interaction on an object (the cone())
   #           use (w,a,s,d) to move object (cone()) on the Oxz plane
   #           with global variables m_theta,m_position (see : on_keyboard_action())
+  # Apply keyboard-driven transform: translate on Oxz, then yaw rotate
+  glTranslatef(m_position[0], 0.0, m_position[2])
+  glRotatef(m_theta, 0, 1, 0)
   glColor3f(1,0,0)
   cone(0.25*size,size)    # object to transform
   # 5)TODO : replace cone()  by bone() from  primitives module
@@ -167,14 +170,14 @@ def on_keyboard_action(key,x,y) :
     print("Animation")
     print("---------")
     print("z/Z : lancer/stopper l'animation")
-  elif  key== b'w' :  # avancer
+  elif  key== b'z' :  # avancer
     m_rho+=0.1
     m_position[0]+=speed*m_rho*sin(radians(m_theta))
     m_position[2]+=speed*m_rho*cos(radians(m_theta))
     w_orientation-=50
     if w_orientation < -360 :
        w_orientation=360
-  elif  key== b'a' :  # à gauche
+  elif  key== b'q' :  # à gauche
     m_theta+=5
     m_theta=m_theta%360
   elif  key== b's' : # reculer
@@ -201,11 +204,11 @@ def on_keyboard_action(key,x,y) :
     c_theta+=5*speed
   elif key == b'U' :
     c_theta-=5*speed
-  elif key == b'q' :
+  elif key == b'0' :
     exit(0)
-  elif  key== b'z' :
+  elif  key== b'w' :
       glutIdleFunc(animation)
-  elif  key== b'Z' : 
+  elif  key== b'w' : 
       glutIdleFunc(None)
   else :
     print(f"no interaction on key : {key}")
