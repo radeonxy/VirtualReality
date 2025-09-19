@@ -11,7 +11,7 @@ except:
 
 from math import radians,sin,cos
 from primitives import square,floor,wcs_lines,wcs_axis
-from primitives import sphere,cylinder,cone,bone,torus,stick
+from primitives import sphere,cylinder,cone,bone
 
 
 c_rho,c_phi,c_theta=10,0,90
@@ -39,19 +39,14 @@ def wheel(size=1.0,bolts=3) :
   global w_orientation            # cf callback on_keyboard_action()
   glPushMatrix()  # wheel creation
   # TODO : transformation to rotate wheel with bolts when car go forward/backward
-  # Align torus axis with +X, then spin around axle (+X)
   glRotatef(90,0,1,0)
-  glRotatef(w_orientation,1,0,0)
   glColor3f(0,0,0)
   torus(0.1*size,size)
   angle=360.0/bolts
   for i in range(bolts) :   # bolts creation on wheel 
     glPushMatrix() 
     # TODO : transformation to set position bolts en wheel
-    # Distribute bolts radially on the wheel plane
-    glRotatef(i*angle,1,0,0)     # around axle (+X)
-    glTranslatef(0.0,0.0,0.85*size)
-    stick(0.08*size,0.08*size,0.2*size)
+    stick(0.1*size,0.1*size,0.25*size)
     glPopMatrix()
   glPopMatrix()  # end wheel creation
 
@@ -63,33 +58,10 @@ def car(size) :
   bodywork(size)
   glPushMatrix()
   # TODO : create and positioning  (transform) left front wheel 
-  track = 0.35*size      # lateral offset from center (X)
-  wheelbase = 0.6*size   # longitudinal offset from center (Z)
-  wsize = 0.2*size
-
-  # left front (-X, +Z)
-  glPushMatrix()
-  glTranslatef(-track, 0.0, +wheelbase)
-  wheel(wsize)
-  glPopMatrix()
-
-  # right front (+X, +Z)
-  glPushMatrix()
-  glTranslatef(+track, 0.0, +wheelbase)
-  wheel(wsize)
-  glPopMatrix()
-
-  # right back (+X, -Z)
-  glPushMatrix()
-  glTranslatef(+track, 0.0, -wheelbase)
-  wheel(wsize)
-  glPopMatrix()
-
-  # left back (-X, -Z)
-  glPushMatrix()
-  glTranslatef(-track, 0.0, -wheelbase)
-  wheel(wsize)
-  glPopMatrix()
+  wheel(0.2*size)  
+  # TODO : create and positioning  (transform) right front wheel 
+  # TODO : create and positioning  (transform) right back wheel
+  # TODO : create and positioning  (transform) left back wheel
   glPopMatrix()  # end car creation
 
 # Robot animation (when robot()implementing to manage arm,forarm rotation)
@@ -148,9 +120,7 @@ def display() :
   #cone(0.25*size,size)    # object to transform
   # 5)TODO : replace cone()  by bone() from  primitives module
   # 6)TODO : replace bone() by robot() and animate with z/Z
-  # robot(size)    # object to transform
-  # 7)TODO : replace robot() by car() and control car and wheels movements
-  car(size)
+  robot(size)    # object to transform
 
   # 6)TODO : create the above robot() function (robot with arm,forarm) 
   #          replace bone() by robot() 
