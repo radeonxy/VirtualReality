@@ -137,7 +137,10 @@ def display() :
   square(size)
   glPopMatrix()
 
-  # 2) TODO : replace wcs_lines() by wcs_axis() 
+  # 2) TODO : replace wcs_lines() by wcs_axis()
+
+
+
   # 3) TODO : replace square() by  floor() from primitives module
   glPushMatrix()  # begin transformation
   # 4) TODO : keyboard interaction on an object (the cone())
