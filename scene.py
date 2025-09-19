@@ -57,12 +57,36 @@ def bodywork(size) :
 def car(size) :
   bodywork(size)
   glPushMatrix()
-  # TODO : create and positioning  (transform) left front wheel 
-  wheel(0.2*size)  
+
+ # TODO : create and positioning  (transform) left front wheel 
+
+  # left front wheel
+  glPushMatrix()
+  glTranslatef(-0.35*size, -0.25*size, 0.35*size)
+  wheel(0.2*size)
+  glPopMatrix()
+
   # TODO : create and positioning  (transform) right front wheel 
+
+  glPushMatrix()
+  glTranslatef(0.35*size, -0.25*size, 0.35*size)
+  wheel(0.2*size)
+  glPopMatrix()
+
   # TODO : create and positioning  (transform) right back wheel
+
+  glPushMatrix()
+  glTranslatef(0.35*size, -0.25*size, -0.35*size)
+  wheel(0.2*size)
+  glPopMatrix()
+
   # TODO : create and positioning  (transform) left back wheel
   glPopMatrix()  # end car creation
+
+  glPushMatrix()
+  glTranslatef(-0.35*size, -0.25*size, -0.35*size)
+  wheel(0.2*size)
+  glPopMatrix() # end car creation
 
 # Robot animation (when robot()implementing to manage arm,forarm rotation)
 def animation() :
@@ -107,6 +131,12 @@ def display() :
   wcs_lines(2*size)
 
   # 1) TODO : use square() from primitives module and place it on Oxz plane
+
+  glPushMatrix()
+  glRotatef(90, 1, 0, 0)
+  square(size)
+  glPopMatrix()
+
   # 2) TODO : replace wcs_lines() by wcs_axis() 
   # 3) TODO : replace square() by  floor() from primitives module
   glPushMatrix()  # begin transformation
