@@ -1,5 +1,8 @@
 # coding: utf-8
 # https://stackoverflow.com/questions/49236745/opengl-translation-before-and-after-a-rotation
+from primitives import *
+
+
 
 try :
   from OpenGL.GLUT import *
@@ -91,8 +94,8 @@ def car(size) :
 # Robot animation (when robot()implementing to manage arm,forarm rotation)
 def animation() :
   global arm,forarm
-  arm+=0.005
-  forarm+=0.05
+  arm+=0.5
+  forarm+=0.9
   if arm > 90.0 :
     arm=0.0
   if forarm > 90.0 :
@@ -128,21 +131,27 @@ def display() :
     c_direction_x,c_direction_y,c_direction_z,
     c_viewup_x,c_viewup_y,c_viewup_z
   )
-  wcs_lines(2*size)
+  #wcs_lines(2*size)
+  wcs_axis(2*size)
+
+
 
   # 1) TODO : use square() from primitives module and place it on Oxz plane
 
   glPushMatrix()
   glRotatef(90, 1, 0, 0)
-  square(size)
+  floor(size)
   glPopMatrix()
 
   # 2) TODO : replace wcs_lines() by wcs_axis()
 
-
+#ligne 132 fait
 
   # 3) TODO : replace square() by  floor() from primitives module
   glPushMatrix()  # begin transformation
+
+#done
+
   # 4) TODO : keyboard interaction on an object (the cone())
   #           use (w,a,s,d) to move object (cone()) on the Oxz plane
   #           with global variables m_theta,m_position (see : on_keyboard_action())
@@ -151,9 +160,14 @@ def display() :
   glRotatef(m_theta, 0, 1, 0)
   glColor3f(1,0,0)
   #cone(0.25*size,size)    # object to transform
+  #robot(0.25*size,size)    # object to transform
+
   # 5)TODO : replace cone()  by bone() from  primitives module
   # 6)TODO : replace bone() by robot() and animate with z/Z
-  robot(size)    # object to transform
+  glPushMatrix  ()
+  glRotatef(90,1,0,0) #(angle, x,y,z
+  car(size)    # object to transform
+  glPopMatrix()
 
   # 6)TODO : create the above robot() function (robot with arm,forarm) 
   #          replace bone() by robot() 
