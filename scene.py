@@ -42,13 +42,16 @@ def wheel(size=1.0,bolts=3) :
   global w_orientation            # cf callback on_keyboard_action()
   glPushMatrix()  # wheel creation
   # TODO : transformation to rotate wheel with bolts when car go forward/backward
-  glRotatef(90,0,1,0)
+  glRotatef(w_orientation,1,0,0)
+  glRotatef(90,0,1,0) #(angle, x,y,z )
   glColor3f(0,0,0)
   torus(0.1*size,size)
   angle=360.0/bolts
   for i in range(bolts) :   # bolts creation on wheel 
     glPushMatrix() 
     # TODO : transformation to set position bolts en wheel
+    glRotatef(i*angle,0,0,1) #(angle, x,y,z)
+    glTranslatef(0.0,0.5*size,0.0)
     stick(0.1*size,0.1*size,0.25*size)
     glPopMatrix()
   glPopMatrix()  # end wheel creation
@@ -56,6 +59,9 @@ def wheel(size=1.0,bolts=3) :
 def bodywork(size) :
   glColor3f(1.0,1.0,0.0)
   cone(0.2*size,size)
+  #square(0.8*size)
+  #sphere(0.3*size)
+  #cylinder(0.3*size, 0.3*size,0.5*size)
 
 def car(size) :
   bodywork(size)
@@ -92,6 +98,10 @@ def car(size) :
   wheel(wheel_size,5)
   glPopMatrix()
 
+  glPushMatrix()
+  glTranslatef(0.0, 0.1*size, -0.5*size)
+  cylinder(0.3*size, 0.3*size,0.3*size)
+  glPopMatrix()
   #--------------------------------
 
 '''
