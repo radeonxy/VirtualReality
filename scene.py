@@ -335,3 +335,17 @@ if __name__ == "__main__" :
   glutKeyboardFunc(on_keyboard_action)
   glutSpecialFunc(on_special_keyboard_action)
   glutMainLoop()
+
+
+
+'''
+          (__)
+          (xx)
+   /-------\/
+  / |     ||
+ *  ||----||
+    ^^    ^^
+ Cow who used Jolt to wash
+down psychadelic mushrooms
+
+'''
