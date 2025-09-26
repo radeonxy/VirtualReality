@@ -59,8 +59,42 @@ def bodywork(size) :
 
 def car(size) :
   bodywork(size)
-  glPushMatrix()
+  #glPushMatrix()
+  #--------------------------------
 
+# Dimensions
+  wheel_size = 0.2 * size
+  wheel_offset_x = 0.5 * size   # écart sur l’axe X entre le centre de la voiture et les roues (gauche/droite)
+  wheel_offset_y = 0 * size # hauteur des roues par rapport au corps
+  wheel_offset_z = 0.6 * size   # écart sur l’axe Z entre l’avant et l’arrière
+
+  # AVG
+  glPushMatrix()
+  glTranslatef(-wheel_offset_x, wheel_offset_y, wheel_offset_z)
+  wheel(wheel_size,5)
+  glPopMatrix()
+
+  # AVD
+  glPushMatrix()
+  glTranslatef(wheel_offset_x, wheel_offset_y, wheel_offset_z)
+  wheel(wheel_size,5)
+  glPopMatrix()
+
+  # ARD
+  glPushMatrix()
+  glTranslatef(wheel_offset_x, wheel_offset_y, -wheel_offset_z)
+  wheel(wheel_size,5)
+  glPopMatrix()
+
+  # ARG
+  glPushMatrix()
+  glTranslatef(-wheel_offset_x, wheel_offset_y, -wheel_offset_z)
+  wheel(wheel_size,5)
+  glPopMatrix()
+
+  #--------------------------------
+
+'''
  # TODO : create and positioning  (transform) left front wheel 
 
   # left front wheel
@@ -89,7 +123,7 @@ def car(size) :
   glPushMatrix()
   glTranslatef(-0.35*size, -0.25*size, -0.35*size)
   wheel(0.2*size)
-  glPopMatrix() # end car creation
+  glPopMatrix() # end car creation'''
 
 # Robot animation (when robot()implementing to manage arm,forarm rotation)
 def animation() :
@@ -137,11 +171,12 @@ def display() :
 
 
   # 1) TODO : use square() from primitives module and place it on Oxz plane
+  floor(size*10)
 
-  glPushMatrix()
+  '''glPushMatrix()
   glRotatef(90, 1, 0, 0)
-  floor(size)
-  glPopMatrix()
+  floor(size*10)
+  glPopMatrix()'''
 
   # 2) TODO : replace wcs_lines() by wcs_axis()
 
@@ -156,17 +191,26 @@ def display() :
   #           use (w,a,s,d) to move object (cone()) on the Oxz plane
   #           with global variables m_theta,m_position (see : on_keyboard_action())
   # Apply keyboard-driven transform: translate on Oxz, then yaw rotate
-  glTranslatef(m_position[0], 0.0, m_position[2])
+  '''glTranslatef(m_position[0], 0.0, m_position[2])
   glRotatef(m_theta, 0, 1, 0)
-  glColor3f(1,0,0)
+  glColor3f(1,0,0)'''
+  r = 0.2*size
+  glTranslatef(m_position[0],r,m_position[2])
+  glRotatef(m_theta,0,1,0)
+  car(size)
   #cone(0.25*size,size)    # object to transform
   #robot(0.25*size,size)    # object to transform
 
   # 5)TODO : replace cone()  by bone() from  primitives module
   # 6)TODO : replace bone() by robot() and animate with z/Z
-  glPushMatrix  ()
-  glRotatef(90,1,0,0) #(angle, x,y,z
+  '''glPushMatrix  ()
+  glRotatef(90,0,1,0) #(angle, x,y,z
   car(size)    # object to transform
+  glPopMatrix()'''
+
+  glPushMatrix  ()
+  glRotatef(90,0,0,1) #(angle, x,y,z
+  robot(size)    # object to transform
   glPopMatrix()
 
   # 6)TODO : create the above robot() function (robot with arm,forarm) 
