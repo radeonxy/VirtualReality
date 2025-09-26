@@ -20,6 +20,7 @@ from primitives import sphere,cylinder,cone,bone
 c_rho,c_phi,c_theta=10,0,90
 m_rho,m_theta=0,0.0
 m_position=[0.0,0,0.0]
+show_axis = True
 
 # TODO : create two connected bones to rotate with angles (arm,forarm)
 arm,forarm=90.0,45.0
@@ -104,36 +105,6 @@ def car(size) :
   glPopMatrix()
   #--------------------------------
 
-'''
- # TODO : create and positioning  (transform) left front wheel 
-
-  # left front wheel
-  glPushMatrix()
-  glTranslatef(-0.35*size, -0.25*size, 0.35*size)
-  wheel(0.2*size)
-  glPopMatrix()
-
-  # TODO : create and positioning  (transform) right front wheel 
-
-  glPushMatrix()
-  glTranslatef(0.35*size, -0.25*size, 0.35*size)
-  wheel(0.2*size)
-  glPopMatrix()
-
-  # TODO : create and positioning  (transform) right back wheel
-
-  glPushMatrix()
-  glTranslatef(0.35*size, -0.25*size, -0.35*size)
-  wheel(0.2*size)
-  glPopMatrix()
-
-  # TODO : create and positioning  (transform) left back wheel
-  glPopMatrix()  # end car creation
-
-  glPushMatrix()
-  glTranslatef(-0.35*size, -0.25*size, -0.35*size)
-  wheel(0.2*size)
-  glPopMatrix() # end car creation'''
 
 # Robot animation (when robot()implementing to manage arm,forarm rotation)
 def animation() :
@@ -176,7 +147,9 @@ def display() :
     c_viewup_x,c_viewup_y,c_viewup_z
   )
   #wcs_lines(2*size)
-  wcs_axis(2*size)
+  #wcs_axis(2*size)
+  if show_axis :
+    wcs_axis(2*size)
 
 
 
@@ -241,7 +214,7 @@ def reshape(width,height) :
 def on_keyboard_action(key,x,y) :
   global m_rho,m_theta
   global w_orientation
-  global c_rho,c_phi,c_theta
+  global c_rho,c_phi,c_theta, show_axis
   speed=0.1
   if key==b'h':
     print("-------------------------------------------") 
@@ -315,6 +288,12 @@ def on_keyboard_action(key,x,y) :
       glutIdleFunc(animation)
   elif  key== b'W' : 
       glutIdleFunc(None)
+
+  elif key==b'1':   # show axes
+    show_axis = True
+  elif key==b'2':   # hide axes
+    show_axis = False
+
   else :
     print(f"no interaction on key : {key}")
   glutPostRedisplay()
